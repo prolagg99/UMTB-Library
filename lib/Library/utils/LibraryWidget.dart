@@ -4,6 +4,25 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:umtb_library/Library/utils/LibraryColors.dart';
 import 'package:umtb_library/Library/utils/LibraryExtention.dart';
 
+AppBar appBar(context) {
+  return AppBar(
+    automaticallyImplyLeading: true,
+    backgroundColor: colorPrimary,
+    elevation: 0,
+    leading: new IconButton(
+      icon: Padding(
+        padding: const EdgeInsets.fromLTRB(5.0, 0, 0, 0),
+        child: new Icon(
+          Icons.arrow_back,
+          color: colorAccentGreen,
+          size: 32.0,
+        ),
+      ),
+      onPressed: () => back(context),
+    ),
+  );
+}
+
 Flexible textWidget(text, color, fontSize) {
   return Flexible(
       child: Text(text,
@@ -43,15 +62,19 @@ Container bookContainer(icon, field, content, textColor, fontSize) {
       Padding(
         padding: const EdgeInsets.fromLTRB(8.0, 4.0, 14.0, 4.0),
         child: Text(
-          capitalization(field),
+          toCapitalized(field),
           style: GoogleFonts.montserrat(color: colorAccentGray, fontSize: 20.0),
         ),
       ),
       Flexible(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 4.0, 0, 4.0),
+          padding: field == 'listing: '
+              ? const EdgeInsets.fromLTRB(0, 0.0, 0, 0.0)
+              : field == 'title: '
+                  ? const EdgeInsets.fromLTRB(0, 6.0, 0, 6.0)
+                  : const EdgeInsets.fromLTRB(0, 7.0, 0, 7.0),
           child: Text(
-            capitalization(content) + "\n",
+            toTitleCase(content) + "\n",
             overflow: TextOverflow.ellipsis,
             maxLines: 5,
             style: GoogleFonts.montserrat(color: textColor, fontSize: fontSize),

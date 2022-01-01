@@ -4,12 +4,12 @@ List<LibraryBookDetails> getBookDetails() {
   List<LibraryBookDetails> list = [];
 
 // i should get this books details from a DB
-  LibraryBookDetails model1 = LibraryBookDetails();
-  model1.title = 'Climatologie Et Temps Phisique AtomiquePhisique Atomique';
-  model1.author = 'alain char';
-  model1.speciality = 'ELECTRONIC';
-  model1.subfield = 'Phisique Atomique';
-  model1.listing = '330/64';
+  LibraryBookDetails model = LibraryBookDetails();
+  model.title = 'climatologie et temps phisique atomique phisique atomique';
+  model.author = 'alain char';
+  model.speciality = 'electronic';
+  model.subfield = 'phisique atomique';
+  model.listing = '330/64';
 
 // RTL direction
   LibraryBookDetails model2 = LibraryBookDetails();
@@ -40,7 +40,7 @@ List<LibraryBookDetails> getBookDetails() {
   model5.subfield = 'Phisique Atomique';
   model5.listing = '330/64';
 
-  list.add(model1);
+  list.add(model);
   list.add(model2);
   list.add(model3);
   list.add(model4);

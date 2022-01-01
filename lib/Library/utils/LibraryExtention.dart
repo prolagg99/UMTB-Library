@@ -10,6 +10,18 @@ changeStatusColor(Color color, {bool isWhite = true}) async {
   }
 }
 
-capitalization(content) {
+toCapitalized(var content) {
   return content.replaceFirst(content[0], content[0].toUpperCase());
+}
+
+toTitleCase(var content) {
+  return content
+      .replaceAll(RegExp(' +'), ' ')
+      .split(' ')
+      .map((content) => toCapitalized(content))
+      .join(' ');
+}
+
+back(var context) {
+  Navigator.pop(context);
 }

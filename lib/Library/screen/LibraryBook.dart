@@ -1,15 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:umtb_library/Library/model/LibraryModels.dart';
 import 'package:umtb_library/Library/utils/LibraryColors.dart';
+import 'package:umtb_library/Library/utils/LibraryDataGenerator.dart';
 import 'package:umtb_library/Library/utils/LibraryImage.dart';
 import 'package:umtb_library/Library/utils/LibraryWidget.dart';
 
-class LibraryBook extends StatelessWidget {
+class LibraryBook extends StatefulWidget {
   const LibraryBook({Key? key}) : super(key: key);
+  static String tag = '/LibraryBook';
+
+  @override
+  State<LibraryBook> createState() => _LibraryBookState();
+}
+
+class _LibraryBookState extends State<LibraryBook> {
+  late List<LibraryBookDetails> mListings;
+
+  @override
+  void initState() {
+    super.initState();
+    mListings = getBookDetails();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: colorPrimary,
+      appBar: appBar(context),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 10.0),
@@ -31,23 +48,23 @@ class LibraryBook extends StatelessWidget {
                       Expanded(
                           flex: 2,
                           child: bookContainer(ic_open_book, 'title: ',
-                              'maxon cinéma 4d 7.0', Colors.white, 20.0)),
+                              mListings[0].title, Colors.white, 20.0)),
                       Expanded(
                           flex: 1,
                           child: bookContainer(ic_users, 'author: ',
-                              'pierre laszlo', Colors.white, 20.0)),
+                              mListings[0].author, Colors.white, 17.0)),
                       Expanded(
                           flex: 1,
                           child: bookContainer(ic_subfield, 'subfiled: ',
-                              'biochimie', Colors.white, 20.0)),
+                              mListings[0].subfield, Colors.white, 17.0)),
                       Expanded(
                           flex: 1,
                           child: bookContainer(ic_speciality, 'speciality: ',
-                              'biologie', Colors.white, 20.0)),
+                              mListings[0].speciality, Colors.white, 17.0)),
                       Expanded(
                           flex: 1,
                           child: bookContainer(ic_file_search, 'listing: ',
-                              '574.19/70', colorAccentGreen, 26.0)),
+                              mListings[0].listing, colorAccentGreen, 28.0)),
                     ],
                   ),
                 ),
