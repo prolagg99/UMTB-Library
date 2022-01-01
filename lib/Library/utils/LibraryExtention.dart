@@ -9,3 +9,7 @@ changeStatusColor(Color color, {bool isWhite = true}) async {
     print(e);
   }
 }
+
+capitalization(content) {
+  return content.replaceFirst(content[0], content[0].toUpperCase());
+}

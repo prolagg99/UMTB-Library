@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:umtb_library/Library/model/LibraryModels.dart';
+import 'package:umtb_library/Library/screen/LibraryBook.dart';
 import 'package:umtb_library/Library/utils/LibraryColors.dart';
 import 'package:umtb_library/Library/utils/LibraryDataGenerator.dart';
 import 'package:umtb_library/Library/utils/LibraryExtention.dart';
@@ -30,7 +31,6 @@ class _LibraryHomeState extends State<LibraryHome> {
     changeStatusColor(colorPrimary);
     return Scaffold(
       backgroundColor: colorPrimary,
-      // appBar: AppBar(),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 10.0),
@@ -84,142 +84,152 @@ class BookCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 36, 0, 0),
-      child: Container(
-        width: 350,
-        height: 104,
-        decoration: BoxDecoration(
-          color: colorPrimary_light,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Row(
-          children: <Widget>[
-            Container(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(12, 12, 0, 0),
-                    child: Container(
-                      width: 40.0,
-                      height: 40.0,
-                      decoration: BoxDecoration(
-                        color: colorPrimary,
-                        borderRadius: BorderRadius.circular(05),
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => LibraryBook()),
+          );
+        },
+        child: Container(
+          width: 350,
+          height: 104,
+          decoration: BoxDecoration(
+            color: colorPrimary_light,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Row(
+            children: <Widget>[
+              Container(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(12, 12, 0, 0),
+                      child: Container(
+                        width: 40.0,
+                        height: 40.0,
+                        decoration: BoxDecoration(
+                          color: colorPrimary,
+                          borderRadius: BorderRadius.circular(05),
+                        ),
+                        child: Icon(
+                          Icons.article,
+                          color: colorAccentBlue,
+                        ),
                       ),
-                      child: Icon(
-                        Icons.article,
-                        color: colorAccentBlue,
-                      ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Container(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(6.0, 4.0, 12.0, 4.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          child: Row(children: [
-                            textWidget(model.title, colorAccentGray, 16.0)
-                          ]),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(6.0, 4.0, 12.0, 4.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            child: Row(children: [
+                              textWidget(model.title, colorAccentGray, 16.0)
+                            ]),
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        flex: 0,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: 108,
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      SvgPicture.asset(
-                                        'images/users.svg',
-                                        height: 16,
-                                        width: 16,
-                                        color: colorAccentGray,
-                                      ),
-                                      SizedBox(width: 8.0),
-                                      textWidget(
-                                          model.author, colorAccentGray, 11.0),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(width: 12.0),
-                            Container(
-                              width: 108,
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      SvgPicture.asset(
-                                        'images/sliders.svg',
-                                        height: 16,
-                                        width: 16,
-                                        color: colorAccentGray,
-                                      ),
-                                      SizedBox(width: 8.0),
-                                      textWidget(model.speciality.toUpperCase(),
-                                          colorAccentGray, 11.0),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Container(
+                        Expanded(
+                          flex: 0,
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              textWidget(model.subfield, Colors.white, 14.0),
+                              Container(
+                                width: 108,
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        SvgPicture.asset(
+                                          'images/users.svg',
+                                          height: 16,
+                                          width: 16,
+                                          color: colorAccentGray,
+                                        ),
+                                        SizedBox(width: 8.0),
+                                        textWidget(model.author,
+                                            colorAccentGray, 11.0),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(width: 12.0),
+                              Container(
+                                width: 108,
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        SvgPicture.asset(
+                                          'images/sliders.svg',
+                                          height: 16,
+                                          width: 16,
+                                          color: colorAccentGray,
+                                        ),
+                                        SizedBox(width: 8.0),
+                                        textWidget(
+                                            model.speciality.toUpperCase(),
+                                            colorAccentGray,
+                                            11.0),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
                         ),
-                      ),
-                      Expanded(
-                        flex: 0,
-                        child: Container(
-                            width: 160,
-                            decoration: BoxDecoration(
-                              color: colorPrimary,
-                              borderRadius: BorderRadius.circular(15),
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            child: Row(
+                              children: [
+                                textWidget(model.subfield, Colors.white, 14.0),
+                              ],
                             ),
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(16, 1.0, 16, 1.0),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.check_circle,
-                                    color: Colors.white,
-                                    size: 16.0,
-                                  ),
-                                  SizedBox(width: 8.0),
-                                  textWidget(
-                                      model.listing, colorAccentGray, 14.0),
-                                ],
+                          ),
+                        ),
+                        Expanded(
+                          flex: 0,
+                          child: Container(
+                              width: 160,
+                              decoration: BoxDecoration(
+                                color: colorPrimary,
+                                borderRadius: BorderRadius.circular(15),
                               ),
-                            )),
-                      ),
-                    ],
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(16, 1.0, 16, 1.0),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.check_circle,
+                                      color: Colors.white,
+                                      size: 16.0,
+                                    ),
+                                    SizedBox(width: 8.0),
+                                    textWidget(
+                                        model.listing, colorAccentGray, 14.0),
+                                  ],
+                                ),
+                              )),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );
