@@ -40,7 +40,7 @@ class _LibraryHomeState extends State<LibraryHome> {
                       SizedBox(width: 5.0),
                       Text(
                         'search',
-                        style: GoogleFonts.montserrat(color: colorAccentGray),
+                        style: GoogleFonts.montserrat(color: colorAccentGrey),
                       )
                     ],
                   ),
@@ -103,7 +103,7 @@ class _LibraryHomeState extends State<LibraryHome> {
                                             overflow: TextOverflow.ellipsis,
                                             // textDirection: TextDirection.rtl,
                                             style: GoogleFonts.montserrat(
-                                              color: colorAccentGray,
+                                              color: colorAccentGrey,
                                               fontSize: 16.0,
                                               // fontWeight: FontWeight.w500,
                                             )),
@@ -125,7 +125,7 @@ class _LibraryHomeState extends State<LibraryHome> {
                                           Row(
                                             children: [
                                               Icon(Icons.person,
-                                                  color: colorAccentGray,
+                                                  color: colorAccentGrey,
                                                   size: 20.0),
                                               SizedBox(
                                                 width: 8.0,
@@ -136,7 +136,7 @@ class _LibraryHomeState extends State<LibraryHome> {
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                   style: GoogleFonts.montserrat(
-                                                    color: colorAccentGray,
+                                                    color: colorAccentGrey,
                                                     fontSize: 11.0,
                                                   ),
                                                 ),
@@ -155,7 +155,7 @@ class _LibraryHomeState extends State<LibraryHome> {
                                           Row(
                                             children: [
                                               Icon(Icons.person,
-                                                  color: colorAccentGray,
+                                                  color: colorAccentGrey,
                                                   size: 20.0),
                                               SizedBox(
                                                 width: 8.0,
@@ -166,7 +166,7 @@ class _LibraryHomeState extends State<LibraryHome> {
                                                         TextOverflow.ellipsis,
                                                     style:
                                                         GoogleFonts.montserrat(
-                                                      color: colorAccentGray,
+                                                      color: colorAccentGrey,
                                                       fontSize: 11.0,
                                                     )),
                                               ),
@@ -221,7 +221,7 @@ class _LibraryHomeState extends State<LibraryHome> {
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                   style: GoogleFonts.montserrat(
-                                                      color: colorAccentGray)),
+                                                      color: colorAccentGrey)),
                                             ),
                                           ],
                                         ),

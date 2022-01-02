@@ -32,41 +32,54 @@ class _LibraryHomeState extends State<LibraryHome> {
     return Scaffold(
       backgroundColor: colorPrimary,
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 10.0),
-          child: Column(
-            children: <Widget>[
-              Container(
-                width: 350,
-                height: 48,
-                decoration: BoxDecoration(
-                  color: colorPrimary_light,
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 12.0, vertical: 0.0),
-                  child: Row(
-                    children: [
-                      ic_search,
-                      SizedBox(width: 5.0),
-                      Text(
-                        'search',
-                        style: GoogleFonts.montserrat(color: colorAccentGray),
-                      )
-                    ],
+        child: Column(
+          children: <Widget>[
+            Container(
+              width: 350,
+              height: 76,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(8.0, 10.0, 8.0, 20.0),
+                child: Container(
+                  width: 350,
+                  height: 28,
+                  decoration: BoxDecoration(
+                    color: colorPrimary_light,
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Row(
+                      children: [
+                        ic_search,
+                        SizedBox(width: 5.0),
+                        Text('search',
+                            style: GoogleFonts.montserrat(
+                                color: Colors.grey[800],
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w300))
+                      ],
+                    ),
                   ),
                 ),
               ),
-              ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: mListings.length,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return BookCard(mListings[index]);
-                  }),
-            ],
-          ),
+            ),
+            Expanded(
+              child: Container(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                child: ScrollConfiguration(
+                  behavior: MyBehavior(),
+                  child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemCount: mListings.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return BookCard(mListings[index]);
+                      }),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -74,7 +87,8 @@ class _LibraryHomeState extends State<LibraryHome> {
 }
 
 class BookCard extends StatelessWidget {
-  // const BookCard({Key? key}) : super(key: key);
+  final arabicChar = RegExp("^[\u0621-\u064A]", unicode: true);
+
   late LibraryBookDetails model;
   BookCard(LibraryBookDetails model) {
     this.model = model;
@@ -83,7 +97,7 @@ class BookCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 36, 0, 0),
+      padding: const EdgeInsets.fromLTRB(18, 19, 18, 17),
       child: GestureDetector(
         onTap: () {
           Navigator.push(
@@ -96,7 +110,7 @@ class BookCard extends StatelessWidget {
           height: 104,
           decoration: BoxDecoration(
             color: colorPrimary_light,
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(22),
           ),
           child: Row(
             children: <Widget>[
@@ -132,9 +146,18 @@ class BookCard extends StatelessWidget {
                         Expanded(
                           flex: 1,
                           child: Container(
-                            child: Row(children: [
-                              textWidget(model.title, colorAccentGray, 16.0)
-                            ]),
+                            child: Row(
+                                mainAxisAlignment:
+                                    (arabicChar.hasMatch(model.title))
+                                        ? MainAxisAlignment.center
+                                        : MainAxisAlignment.start,
+                                children: [
+                                  (arabicChar.hasMatch(model.title))
+                                      ? textWidgetRTL(toTitleCase(model.title),
+                                          colorAccentGrey, 16.0)
+                                      : textWidget(toTitleCase(model.title),
+                                          colorAccentGrey, 16.0),
+                                ]),
                           ),
                         ),
                         Expanded(
@@ -152,11 +175,18 @@ class BookCard extends StatelessWidget {
                                           'images/users.svg',
                                           height: 16,
                                           width: 16,
-                                          color: colorAccentGray,
+                                          color: colorAccentGrey,
                                         ),
                                         SizedBox(width: 8.0),
-                                        textWidget(model.author,
-                                            colorAccentGray, 11.0),
+                                        (arabicChar.hasMatch(model.author))
+                                            ? textWidgetRTL(
+                                                toTitleCase(model.author),
+                                                colorAccentGrey,
+                                                11.0)
+                                            : textWidget(
+                                                toTitleCase(model.author),
+                                                colorAccentGrey,
+                                                11.0),
                                       ],
                                     ),
                                   ],
@@ -173,12 +203,12 @@ class BookCard extends StatelessWidget {
                                           'images/sliders.svg',
                                           height: 16,
                                           width: 16,
-                                          color: colorAccentGray,
+                                          color: colorAccentGrey,
                                         ),
                                         SizedBox(width: 8.0),
                                         textWidget(
                                             model.speciality.toUpperCase(),
-                                            colorAccentGray,
+                                            colorAccentGrey,
                                             11.0),
                                       ],
                                     ),
@@ -192,8 +222,16 @@ class BookCard extends StatelessWidget {
                           flex: 1,
                           child: Container(
                             child: Row(
+                              mainAxisAlignment:
+                                  (arabicChar.hasMatch(model.subfield))
+                                      ? MainAxisAlignment.end
+                                      : MainAxisAlignment.start,
                               children: [
-                                textWidget(model.subfield, Colors.white, 14.0),
+                                (arabicChar.hasMatch(model.subfield))
+                                    ? textWidgetRTL(toTitleCase(model.subfield),
+                                        Colors.white, 14.0)
+                                    : textWidget(toTitleCase(model.subfield),
+                                        Colors.white, 14.0),
                               ],
                             ),
                           ),
@@ -217,8 +255,8 @@ class BookCard extends StatelessWidget {
                                       size: 16.0,
                                     ),
                                     SizedBox(width: 8.0),
-                                    textWidget(
-                                        model.listing, colorAccentGray, 14.0),
+                                    textWidget(toTitleCase(model.listing),
+                                        colorAccentGrey, 14.0),
                                   ],
                                 ),
                               )),
@@ -235,6 +273,7 @@ class BookCard extends StatelessWidget {
     );
   }
 }
+
 
 // RTL Widget
     // Container(
@@ -287,7 +326,7 @@ class BookCard extends StatelessWidget {
               //                             MainAxisAlignment.center,
               //                         children: [
               //                           textWidgetRTL('إدارة الأعمال',
-              //                               colorAccentGray, 16.0)
+              //                               colorAccentGrey, 16.0)
               //                         ]),
               //                   ),
               //                 ),
@@ -307,11 +346,11 @@ class BookCard extends StatelessWidget {
               //                                   'images/users.svg',
               //                                   height: 16,
               //                                   width: 16,
-              //                                   color: colorAccentGray,
+              //                                   color: colorAccentGrey,
               //                                 ),
               //                                 SizedBox(width: 8.0),
               //                                 textWidgetRTL('محمد الصيرفي',
-              //                                     colorAccentGray, 11.5),
+              //                                     colorAccentGrey, 11.5),
               //                               ],
               //                             ),
               //                           ],
@@ -329,12 +368,12 @@ class BookCard extends StatelessWidget {
               //                                   'images/sliders.svg',
               //                                   height: 16,
               //                                   width: 16,
-              //                                   color: colorAccentGray,
+              //                                   color: colorAccentGrey,
               //                                 ),
               //                                 SizedBox(width: 8.0),
               //                                 textWidget(
               //                                     'economic'.toUpperCase(),
-              //                                     colorAccentGray,
+              //                                     colorAccentGrey,
               //                                     11.5),
               //                               ],
               //                             ),
@@ -377,7 +416,7 @@ class BookCard extends StatelessWidget {
               //                             ),
               //                             SizedBox(width: 8.0),
               //                             textWidget(
-              //                                 '330/64', colorAccentGray, 14.0),
+              //                                 '330/64', colorAccentGrey, 14.0),
               //                           ],
               //                         ),
               //                       )),

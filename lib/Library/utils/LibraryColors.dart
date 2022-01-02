@@ -8,4 +8,4 @@ const colorPrimary = Color(0XFF1c1e2d); // the dark blue of background
 const colorPrimary_light = Color(0XFF25283b); // the light blue of card
 const colorAccentBlue = Color(0XFF93e1eb); // the blue
 const colorAccentGreen = Color(0XFF9fca5f); // the green
-const colorAccentGray = Color(0XFF909197); // the gray
+const colorAccentGrey = Color(0XFF909197); // the gray

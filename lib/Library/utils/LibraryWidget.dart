@@ -23,6 +23,14 @@ AppBar appBar(context) {
   );
 }
 
+class MyBehavior extends ScrollBehavior {
+  @override
+  Widget buildViewportChrome(
+      BuildContext context, Widget child, AxisDirection axisDirection) {
+    return child;
+  }
+}
+
 Flexible textWidget(text, color, fontSize) {
   return Flexible(
       child: Text(text,
@@ -49,7 +57,7 @@ SvgPicture svgPicture(icon) {
     icon,
     height: 36,
     width: 36,
-    color: colorAccentGray,
+    color: colorAccentGrey,
   );
 }
 
@@ -63,7 +71,7 @@ Container bookContainer(icon, field, content, textColor, fontSize) {
         padding: const EdgeInsets.fromLTRB(8.0, 4.0, 14.0, 4.0),
         child: Text(
           toCapitalized(field),
-          style: GoogleFonts.montserrat(color: colorAccentGray, fontSize: 20.0),
+          style: GoogleFonts.montserrat(color: colorAccentGrey, fontSize: 20.0),
         ),
       ),
       Flexible(
