@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:umtb_library/Library/utils/LibraryColors.dart';
+import 'package:umtb_library/Library/utils/LibraryConstant.dart';
 import 'package:umtb_library/Library/utils/LibraryExtention.dart';
 
 AppBar appBar(context) {
@@ -35,10 +35,8 @@ Flexible textWidget(text, color, fontSize) {
   return Flexible(
       child: Text(text,
           overflow: TextOverflow.ellipsis,
-          style: GoogleFonts.montserrat(
-            color: color,
-            fontSize: fontSize,
-          )));
+          style: TextStyle(
+              fontFamily: fontRegular, color: color, fontSize: fontSize)));
 }
 
 Flexible textWidgetRTL(text, color, fontSize) {
@@ -46,10 +44,8 @@ Flexible textWidgetRTL(text, color, fontSize) {
       child: Text(text,
           textDirection: TextDirection.rtl,
           overflow: TextOverflow.ellipsis,
-          style: GoogleFonts.montserrat(
-            color: color,
-            fontSize: fontSize,
-          )));
+          style: TextStyle(
+              fontFamily: fontRegular, color: color, fontSize: fontSize)));
 }
 
 SvgPicture svgPicture(icon) {
@@ -68,12 +64,12 @@ Container bookContainer(icon, field, content, textColor, fontSize) {
     children: [
       svgPicture(icon),
       Padding(
-        padding: const EdgeInsets.fromLTRB(8.0, 4.0, 14.0, 4.0),
-        child: Text(
-          toCapitalized(field),
-          style: GoogleFonts.montserrat(color: colorAccentGrey, fontSize: 20.0),
-        ),
-      ),
+          padding: const EdgeInsets.fromLTRB(8.0, 4.0, 14.0, 4.0),
+          child: Text(toCapitalized(field),
+              style: TextStyle(
+                  fontFamily: fontRegular,
+                  color: colorAccentGrey,
+                  fontSize: 20.0))),
       Flexible(
         child: Padding(
           padding: field == 'listing: '
@@ -81,12 +77,13 @@ Container bookContainer(icon, field, content, textColor, fontSize) {
               : field == 'title: '
                   ? const EdgeInsets.fromLTRB(0, 6.0, 0, 6.0)
                   : const EdgeInsets.fromLTRB(0, 7.0, 0, 7.0),
-          child: Text(
-            toTitleCase(content) + "\n",
-            overflow: TextOverflow.ellipsis,
-            maxLines: 5,
-            style: GoogleFonts.montserrat(color: textColor, fontSize: fontSize),
-          ),
+          child: Text(toTitleCase(content) + "\n",
+              overflow: TextOverflow.ellipsis,
+              maxLines: 5,
+              style: TextStyle(
+                  fontFamily: fontRegular,
+                  color: textColor,
+                  fontSize: fontSize)),
         ),
       ),
     ],

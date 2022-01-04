@@ -1,0 +1,2 @@
+/*fonts*/
+const fontRegular = 'Montserrat';

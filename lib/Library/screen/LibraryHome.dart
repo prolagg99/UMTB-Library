@@ -3,10 +3,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:umtb_library/Library/model/LibraryModels.dart';
 import 'package:umtb_library/Library/screen/LibraryBook.dart';
 import 'package:umtb_library/Library/utils/LibraryColors.dart';
+import 'package:umtb_library/Library/utils/LibraryConstant.dart';
 import 'package:umtb_library/Library/utils/LibraryDataGenerator.dart';
 import 'package:umtb_library/Library/utils/LibraryExtention.dart';
 import 'package:umtb_library/Library/utils/LibraryImage.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:umtb_library/Library/utils/LibraryWidget.dart';
 
 class LibraryHome extends StatefulWidget {
@@ -53,10 +53,11 @@ class _LibraryHomeState extends State<LibraryHome> {
                         ic_search,
                         SizedBox(width: 5.0),
                         Text('search',
-                            style: GoogleFonts.montserrat(
-                                color: Colors.grey[800],
+                            style: TextStyle(
+                                fontFamily: fontRegular,
                                 fontSize: 16.0,
-                                fontWeight: FontWeight.w300))
+                                fontWeight: FontWeight.w300,
+                                color: Colors.grey[800]))
                       ],
                     ),
                   ),
@@ -87,11 +88,13 @@ class _LibraryHomeState extends State<LibraryHome> {
 }
 
 class BookCard extends StatelessWidget {
-  final arabicChar = RegExp("^[\u0621-\u064A]", unicode: true);
-
   late LibraryBookDetails model;
   BookCard(LibraryBookDetails model) {
     this.model = model;
+  }
+  final arabicCharExp = RegExp("^[\u0621-\u064A]", unicode: true);
+  bool arabicChar(String str) {
+    return arabicCharExp.hasMatch(str);
   }
 
   @override
@@ -147,12 +150,11 @@ class BookCard extends StatelessWidget {
                           flex: 1,
                           child: Container(
                             child: Row(
-                                mainAxisAlignment:
-                                    (arabicChar.hasMatch(model.title))
-                                        ? MainAxisAlignment.center
-                                        : MainAxisAlignment.start,
+                                mainAxisAlignment: arabicChar(model.title)
+                                    ? MainAxisAlignment.center
+                                    : MainAxisAlignment.start,
                                 children: [
-                                  (arabicChar.hasMatch(model.title))
+                                  arabicChar(model.title)
                                       ? textWidgetRTL(toTitleCase(model.title),
                                           colorAccentGrey, 16.0)
                                       : textWidget(toTitleCase(model.title),
@@ -178,7 +180,7 @@ class BookCard extends StatelessWidget {
                                           color: colorAccentGrey,
                                         ),
                                         SizedBox(width: 8.0),
-                                        (arabicChar.hasMatch(model.author))
+                                        arabicChar(model.author)
                                             ? textWidgetRTL(
                                                 toTitleCase(model.author),
                                                 colorAccentGrey,
@@ -222,12 +224,11 @@ class BookCard extends StatelessWidget {
                           flex: 1,
                           child: Container(
                             child: Row(
-                              mainAxisAlignment:
-                                  (arabicChar.hasMatch(model.subfield))
-                                      ? MainAxisAlignment.end
-                                      : MainAxisAlignment.start,
+                              mainAxisAlignment: arabicChar(model.subfield)
+                                  ? MainAxisAlignment.end
+                                  : MainAxisAlignment.start,
                               children: [
-                                (arabicChar.hasMatch(model.subfield))
+                                arabicChar(model.subfield)
                                     ? textWidgetRTL(toTitleCase(model.subfield),
                                         Colors.white, 14.0)
                                     : textWidget(toTitleCase(model.subfield),
