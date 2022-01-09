@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:umtb_library/Library/model/LibraryModels.dart';
-import 'package:umtb_library/Library/screen/LibraryBook.dart';
+import 'package:umtb_library/Library/screen/LibraryBookDetails.dart';
 import 'package:umtb_library/Library/utils/LibraryColors.dart';
 import 'package:umtb_library/Library/utils/LibraryConstant.dart';
 import 'package:umtb_library/Library/utils/LibraryDataGenerator.dart';
@@ -18,7 +18,7 @@ class LibraryHome extends StatefulWidget {
 }
 
 class _LibraryHomeState extends State<LibraryHome> {
-  late List<LibraryBookDetails> mListings;
+  late List<BookDetails> mListings;
 
   @override
   void initState() {
@@ -88,8 +88,8 @@ class _LibraryHomeState extends State<LibraryHome> {
 }
 
 class BookCard extends StatelessWidget {
-  late LibraryBookDetails model;
-  BookCard(LibraryBookDetails model) {
+  late BookDetails model;
+  BookCard(BookDetails model) {
     this.model = model;
   }
   final arabicCharExp = RegExp("^[\u0621-\u064A]", unicode: true);
@@ -105,7 +105,7 @@ class BookCard extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => LibraryBook()),
+            MaterialPageRoute(builder: (context) => LibraryBookDetails()),
           );
         },
         child: Container(

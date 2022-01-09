@@ -1,7 +1,7 @@
-class LibraryBookDetails {
-  var title = "";
-  var author = "";
-  var subfield = "";
-  var speciality = "";
-  var listing = "";
+class BookDetails {
+  String title = "";
+  String author = "";
+  String subfield = "";
+  String speciality = "";
+  String listing = "";
 }

@@ -1,102 +1,82 @@
-import 'package:flappy_search_bar/search_bar_style.dart';
-import 'package:flutter/material.dart';
-import 'package:flappy_search_bar/flappy_search_bar.dart';
-import 'dart:math';
+// import 'package:flutter/material.dart';
+// import 'package:flappy_search_bar/flappy_search_bar.dart';
 
-import 'package:umtb_library/Library/utils/LibraryColors.dart';
-import 'package:umtb_library/Library/utils/LibraryImage.dart';
+// class Post {
+//   final String title;
+//   final String description;
 
-class LibrarySearchBar extends StatefulWidget {
-  const LibrarySearchBar({Key? key}) : super(key: key);
+//   Post(this.title, this.description);
+// }
 
-  @override
-  _LibrarySearchBarState createState() => _LibrarySearchBarState();
-}
+// String _searchText = "";
+// late List names; // names we get from API
+// late List filteredNames; // names filtered by search text
 
-class _LibrarySearchBarState extends State<LibrarySearchBar> {
-  final SearchBarController<Post> _searchBarController = SearchBarController();
-  bool isReplay = false;
+// class LibrarySearchBarTest extends StatelessWidget {
+//   Future<List<Post>> search(String search) async {
+//     await Future.delayed(Duration(seconds: 2));
+//     return List.generate(search.length, (int index) {
+//       return Post(
+//         "Title : $search $index",
+//         "Description :$search $index",
+//       );
+//     });
+//   }
 
-  Future<List<Post>> _getALlPosts(String text) async {
-    List<Post> posts = [];
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: SafeArea(
+//         child: Padding(
+//           padding: const EdgeInsets.symmetric(horizontal: 20),
+//           child: SearchBar<Post>(
+//             onSearch: search,
+//             onItemFound: (Post post, int index) {
+//               return ListTile(
+//                 title: Text(post.title),
+//                 subtitle: Text(post.description),
+//               );
+//             },
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
-    var random = new Random();
-    for (int i = 0; i < 10; i++) {
-      posts
-          .add(Post("$text $i", "body random number : ${random.nextInt(100)}"));
-    }
-    return posts;
-  }
+// // function to use
+// void _getNames() async {
+//   final response = await dio.get('https://swapi.co/api/people');
+//   List tempList;
+//   for (int i = 0; i < response.data['results'].length; i++) {
+//     tempList.add(response.data['results'][i]);
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: colorPrimary,
-      body: SafeArea(
-        child: SearchBar<Post>(
-          hintText: 'search',
-          icon: ic_search,
-          searchBarStyle: SearchBarStyle(
-            // padding: EdgeInsets.all(10),
-            backgroundColor: colorPrimary_light,
-            borderRadius: BorderRadius.circular(65),
-          ),
-          minimumChars: 1,
-          searchBarPadding: EdgeInsets.symmetric(horizontal: 20),
-          headerPadding: EdgeInsets.symmetric(horizontal: 10),
-          listPadding: EdgeInsets.symmetric(horizontal: 10),
-          onSearch: _getALlPosts,
-          searchBarController: _searchBarController,
-          // placeHolder: Center(
-          //     child: Text(
-          //   "PlaceHolder",
-          //   style: TextStyle(fontSize: 30),
-          // )),
-          cancellationWidget: Icon(Icons.cancel),
-          // emptyWidget: Text("empty"),
-          // onCancelled: () {
-          //   print("Cancelled triggered");
-          // },
-          mainAxisSpacing: 10,
-          onItemFound: (Post post, int index) {
-            return Container(
-              color: Colors.red,
-              child: ListTile(
-                title: Text(post.title),
-                isThreeLine: true,
-                subtitle: Text(post.body),
-                onTap: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (context) => Detail()));
-                },
-              ),
-            );
-          },
-        ),
-      ),
-    );
-  }
-}
+//   setState(() {
+//     names = tempList;
+//     filteredNames = names;
+//   });
+// }
 
-class Post {
-  final String title;
-  final String body;
-
-  Post(this.title, this.body);
-}
-
-class Detail extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: SafeArea(
-        child: Center(
-            child: Text(
-          "Detail",
-          style: TextStyle(fontSize: 30),
-        )),
-      ),
-    );
-  }
-}
+// Widget _buildList() {
+//   if (!(_searchText.isEmpty)) {
+//     List tempList;
+//     for (int i = 0; i < filteredNames.length; i++) {
+//       if (filteredNames[i]['name']
+//           .toLowerCase()
+//           .contains(_searchText.toLowerCase())) {
+//         tempList.add(filteredNames[i]);
+//       }
+//     }
+//     filteredNames = tempList;
+//   }
+//   return ListView.builder(
+//     itemCount: names == null ? 0 : filteredNames.length,
+//     itemBuilder: (BuildContext context, int index) {
+//       return new ListTile(
+//         title: Text(filteredNames[index]['name']),
+//         onTap: () => print(filteredNames[index]['name']),
+//       );
+//     },
+//   );
+// }
