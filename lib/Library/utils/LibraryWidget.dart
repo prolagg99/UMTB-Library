@@ -57,35 +57,39 @@ SvgPicture svgPicture(icon) {
   );
 }
 
-Container bookContainer(icon, field, content, textColor, fontSize) {
-  return Container(
-      child: Row(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      svgPicture(icon),
-      Padding(
-          padding: const EdgeInsets.fromLTRB(8.0, 4.0, 14.0, 4.0),
-          child: Text(toCapitalized(field),
-              style: TextStyle(
-                  fontFamily: fontRegular,
-                  color: colorAccentGrey,
-                  fontSize: 20.0))),
-      Flexible(
-        child: Padding(
-          padding: field == 'listing: '
-              ? const EdgeInsets.fromLTRB(0, 0.0, 0, 0.0)
-              : field == 'title: '
-                  ? const EdgeInsets.fromLTRB(0, 6.0, 0, 6.0)
-                  : const EdgeInsets.fromLTRB(0, 7.0, 0, 7.0),
-          child: Text(toTitleCase(content) + "\n",
-              overflow: TextOverflow.ellipsis,
-              maxLines: 5,
-              style: TextStyle(
-                  fontFamily: fontRegular,
-                  color: textColor,
-                  fontSize: fontSize)),
+Widget bookContainer(icon, field, content, textColor, fontSize) {
+  return Padding(
+    padding: const EdgeInsets.fromLTRB(0, 14.0, 0, 0),
+    child: Container(
+        // color: Colors.red,
+        child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        svgPicture(icon),
+        Padding(
+            padding: const EdgeInsets.fromLTRB(8.0, 4.0, 14.0, 4.0),
+            child: Text(toCapitalized(field),
+                style: TextStyle(
+                    fontFamily: fontRegular,
+                    color: colorAccentGrey,
+                    fontSize: 20.0))),
+        Flexible(
+          child: Padding(
+            padding: field == 'listing: '
+                ? const EdgeInsets.fromLTRB(0, 0.0, 0, 0.0)
+                : field == 'title: '
+                    ? const EdgeInsets.fromLTRB(0, 6.0, 0, 6.0)
+                    : const EdgeInsets.fromLTRB(0, 7.0, 0, 7.0),
+            child: Text(toTitleCase(content) + "\n",
+                overflow: TextOverflow.ellipsis,
+                maxLines: 5,
+                style: TextStyle(
+                    fontFamily: fontRegular,
+                    color: textColor,
+                    fontSize: fontSize)),
+          ),
         ),
-      ),
-    ],
-  ));
+      ],
+    )),
+  );
 }
