@@ -81,36 +81,8 @@ class _LibrarySearchBarState extends State<LibrarySearchBar> {
           // mainAxisSpacing: 10,
           onItemFound: (BookDetails post, int index) {
             return BookCard(post);
-            // return Container(
-            //   color: Colors.lightBlue,
-            //   child: ListTile(
-            //     title: Text(post.title),
-            //     isThreeLine: true,
-            //     subtitle: Text(post.subfield),
-            //     onTap: () {
-            //       Navigator.of(context)
-            //           .push(MaterialPageRoute(builder: (context) => Detail()));
-            //     },
-            //   ),
-            // );
           },
         ),
-      ),
-    );
-  }
-}
-
-class Detail extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: SafeArea(
-        child: Center(
-            child: Text(
-          "Detail",
-          style: TextStyle(fontSize: 30),
-        )),
       ),
     );
   }

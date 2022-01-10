@@ -1,27 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:umtb_library/Library/model/LibraryModels.dart';
 import 'package:umtb_library/Library/utils/LibraryColors.dart';
-import 'package:umtb_library/Library/utils/LibraryDataGenerator.dart';
 import 'package:umtb_library/Library/utils/LibraryImage.dart';
 import 'package:umtb_library/Library/utils/LibraryWidget.dart';
 
 class LibraryBookDetails extends StatefulWidget {
-  const LibraryBookDetails({Key? key}) : super(key: key);
   static String tag = '/LibraryBookDetails';
+
+  final BookDetails model;
+  const LibraryBookDetails(this.model);
 
   @override
   State<LibraryBookDetails> createState() => _LibraryBookDetailsState();
 }
 
 class _LibraryBookDetailsState extends State<LibraryBookDetails> {
-  late List<BookDetails> mListings;
-
-  @override
-  void initState() {
-    super.initState();
-    mListings = getBookDetails();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,23 +41,23 @@ class _LibraryBookDetailsState extends State<LibraryBookDetails> {
                       Expanded(
                           flex: 2,
                           child: bookContainer(ic_open_book, 'title: ',
-                              mListings[0].title, Colors.white, 20.0)),
+                              widget.model.title, Colors.white, 20.0)),
                       Expanded(
                           flex: 1,
                           child: bookContainer(ic_users, 'author: ',
-                              mListings[0].author, Colors.white, 17.0)),
+                              widget.model.author, Colors.white, 17.0)),
                       Expanded(
                           flex: 1,
                           child: bookContainer(ic_subfield, 'subfiled: ',
-                              mListings[0].subfield, Colors.white, 17.0)),
+                              widget.model.subfield, Colors.white, 17.0)),
                       Expanded(
                           flex: 1,
                           child: bookContainer(ic_speciality, 'speciality: ',
-                              mListings[0].speciality, Colors.white, 17.0)),
+                              widget.model.speciality, Colors.white, 17.0)),
                       Expanded(
                           flex: 1,
                           child: bookContainer(ic_file_search, 'listing: ',
-                              mListings[0].listing, colorAccentGreen, 28.0)),
+                              widget.model.listing, colorAccentGreen, 28.0)),
                     ],
                   ),
                 ),

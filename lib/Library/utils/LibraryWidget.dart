@@ -70,6 +70,7 @@ Widget bookContainer(icon, field, content, textColor, fontSize) {
             padding: const EdgeInsets.fromLTRB(8.0, 4.0, 14.0, 4.0),
             child: Text(toCapitalized(field),
                 style: TextStyle(
+                    fontWeight: FontWeight.w600,
                     fontFamily: fontRegular,
                     color: colorAccentGrey,
                     fontSize: 20.0))),
@@ -80,16 +81,35 @@ Widget bookContainer(icon, field, content, textColor, fontSize) {
                 : field == 'title: '
                     ? const EdgeInsets.fromLTRB(0, 6.0, 0, 6.0)
                     : const EdgeInsets.fromLTRB(0, 7.0, 0, 7.0),
-            child: Text(toTitleCase(content) + "\n",
-                overflow: TextOverflow.ellipsis,
-                maxLines: 5,
-                style: TextStyle(
-                    fontFamily: fontRegular,
-                    color: textColor,
-                    fontSize: fontSize)),
+            child: Row(
+              mainAxisAlignment: arabicChar(content) && field == 'title: '
+                  ? MainAxisAlignment.end
+                  : arabicChar(content) &&
+                          (field == 'author: ' || field == 'subfiled: ')
+                      ? MainAxisAlignment.center
+                      : MainAxisAlignment.start,
+              children: [
+                Text(toTitleCase(content) + "\n",
+                    textDirection: arabicChar(content)
+                        ? TextDirection.rtl
+                        : TextDirection.ltr,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 5,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontFamily: fontRegular,
+                        color: textColor,
+                        fontSize: fontSize)),
+              ],
+            ),
           ),
         ),
       ],
     )),
   );
+}
+
+final arabicCharExp = RegExp("^[\u0621-\u064A]", unicode: true);
+bool arabicChar(String str) {
+  return arabicCharExp.hasMatch(str);
 }
