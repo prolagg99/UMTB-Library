@@ -76,11 +76,13 @@ Widget bookContainer(icon, field, content, textColor, fontSize) {
                     fontSize: 20.0))),
         Flexible(
           child: Padding(
-            padding: field == 'listing: '
-                ? const EdgeInsets.fromLTRB(0, 0.0, 0, 0.0)
-                : field == 'title: '
-                    ? const EdgeInsets.fromLTRB(0, 6.0, 0, 6.0)
-                    : const EdgeInsets.fromLTRB(0, 7.0, 0, 7.0),
+            padding: arabicChar(content)
+                ? const EdgeInsets.fromLTRB(0, 2.0, 0, 2.0)
+                : field == 'listing: '
+                    ? const EdgeInsets.fromLTRB(0, 0.0, 0, 0.0)
+                    : field == 'title: '
+                        ? const EdgeInsets.fromLTRB(0, 6.0, 0, 6.0)
+                        : const EdgeInsets.fromLTRB(0, 7.0, 0, 7.0),
             child: Row(
               mainAxisAlignment: arabicChar(content) && field == 'title: '
                   ? MainAxisAlignment.end
@@ -89,17 +91,19 @@ Widget bookContainer(icon, field, content, textColor, fontSize) {
                       ? MainAxisAlignment.center
                       : MainAxisAlignment.start,
               children: [
-                Text(toTitleCase(content) + "\n",
-                    textDirection: arabicChar(content)
-                        ? TextDirection.rtl
-                        : TextDirection.ltr,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 5,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontFamily: fontRegular,
-                        color: textColor,
-                        fontSize: fontSize)),
+                Expanded(
+                  child: Text(toTitleCase(content) + "\n",
+                      textDirection: arabicChar(content)
+                          ? TextDirection.rtl
+                          : TextDirection.ltr,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 5,
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontFamily: fontRegular,
+                          color: textColor,
+                          fontSize: fontSize)),
+                ),
               ],
             ),
           ),
@@ -109,6 +113,7 @@ Widget bookContainer(icon, field, content, textColor, fontSize) {
   );
 }
 
+// detect if the text have arabic char to make it RTL direction
 final arabicCharExp = RegExp("^[\u0621-\u064A]", unicode: true);
 bool arabicChar(String str) {
   return arabicCharExp.hasMatch(str);

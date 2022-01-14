@@ -18,6 +18,7 @@ class _LibraryBookDetailsState extends State<LibraryBookDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: colorPrimary,
       appBar: appBar(context),
       body: SafeArea(
