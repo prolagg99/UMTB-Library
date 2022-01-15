@@ -21,11 +21,12 @@ class _LibraryHomeState extends State<LibraryHome> {
       SearchBarController();
   GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
   List<BookDetails> mListings = [];
-
   // bool isReplay = false;
   @override
   void initState() {
     super.initState();
+    mListings = getBookDetails();
+
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       _addBooks();
     });
@@ -43,17 +44,24 @@ class _LibraryHomeState extends State<LibraryHome> {
   }
 
   void _addBooks() {
-    // get data from db
-    mListings = getBookDetails();
     Future ft = Future(() {});
 
-    mListings.forEach((element) {
+    for (var index = 1; index < mListings.length; ++index) {
       ft = ft.then((data) {
         return Future.delayed(const Duration(milliseconds: 100), () {
-          _listKey.currentState!.insertItem(mListings.indexOf(element));
+          _listKey.currentState!.insertItem(index);
         });
       });
-    });
+    }
+
+    // mListings.forEach((element) {
+    //   ft = ft.then((data) {
+    //     return Future.delayed(const Duration(milliseconds: 100), () {
+    //       mListings.add(element);
+    //       _listKey.currentState!.insertItem(mListings.length - 1);
+    //     });
+    //   });
+    // });
   }
 
   Tween<Offset> _offset = Tween(begin: Offset(1, 0), end: Offset(0, 0));
@@ -89,10 +97,10 @@ class _LibraryHomeState extends State<LibraryHome> {
                   scrollDirection: Axis.vertical,
                   initialItemCount: mListings.length,
                   shrinkWrap: true,
-                  itemBuilder: (context, indx, animation) {
+                  itemBuilder: (context, index, animation) {
                     return SlideTransition(
                         position: animation.drive(_offset),
-                        child: BookCard(mListings[indx]));
+                        child: BookCard(mListings[index]));
                   }),
             ),
           ),
