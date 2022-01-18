@@ -8,14 +8,12 @@ List<BookDetails> getBookDetails() {
         speciality: 'electronic',
         subfield: 'phisique atomique',
         listing: '330/64'),
-    // i should get this books details from a DB
     BookDetails(
         title: 'climatologie et temps phisique atomique phisique atomique',
         author: 'alain char',
         speciality: 'electronic',
         subfield: 'phisique atomique',
         listing: '330/64'),
-
 // RTL direction
     BookDetails(
         title: 'إدارة الاعمال',
@@ -23,35 +21,30 @@ List<BookDetails> getBookDetails() {
         speciality: 'economic',
         subfield: 'التنسيق الإداري',
         listing: '330/64'),
-
     BookDetails(
         title: 'climatologie et temps',
         author: 'alain char',
         speciality: 'electronic',
         subfield: 'phisique atomique',
         listing: '330/64'),
-
     BookDetails(
         title: 'climatologie et temps phisique atomique phisique atomique',
         author: 'alain char',
         speciality: 'electronic',
         subfield: 'phisique atomique',
         listing: '330/64'),
-
     BookDetails(
         title: 'climatologie et temps phisique atomique phisique atomique',
         author: 'alain char',
         speciality: 'electronic',
         subfield: 'phisique atomique',
         listing: '330/64'),
-
     BookDetails(
         title: 'climatologie et temps phisique atomique phisique atomique',
         author: 'alain char',
         speciality: 'electronic',
         subfield: 'phisique atomique',
         listing: '330/64'),
-
     BookDetails(
         title: 'climatologie et temps phisique atomique phisique atomique',
         author: 'alain char',
