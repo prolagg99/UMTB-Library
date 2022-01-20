@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flappy_search_bar/search_bar_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:umtb_library/Library/model/LibraryModels.dart';
 import 'package:umtb_library/Library/screen/LibraryBookDetails.dart';
+import 'package:umtb_library/Library/services/database.dart';
 import 'package:umtb_library/Library/utils/LibraryColors.dart';
 import 'package:umtb_library/Library/utils/LibraryDataGenerator.dart';
 import 'package:umtb_library/Library/utils/LibraryExtention.dart';
@@ -11,6 +14,8 @@ import 'package:umtb_library/Library/utils/LibraryImage.dart';
 import 'package:umtb_library/Library/utils/LibraryWidget.dart';
 
 class LibraryHome extends StatefulWidget {
+  static String tag = '/LibraryHome';
+
   const LibraryHome({Key? key}) : super(key: key);
   @override
   _LibraryHomeState createState() => _LibraryHomeState();
@@ -59,53 +64,58 @@ class _LibraryHomeState extends State<LibraryHome> {
   Tween<Offset> _offset = Tween(begin: Offset(1, 0), end: Offset(0, 0));
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: colorPrimary,
-      body: SafeArea(
-        child: SearchBar<BookDetails>(
-          hintText: 'search',
-          hintStyle: TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.w300,
-              color: Colors.grey[800]),
-          icon: ic_search,
-          textStyle: TextStyle(color: Colors.white),
-          searchBarStyle: SearchBarStyle(
-            padding: EdgeInsets.symmetric(horizontal: 14, vertical: 0),
-            backgroundColor: colorPrimary_light,
-            borderRadius: BorderRadius.circular(26),
-          ),
-          minimumChars: 1,
-          searchBarPadding: EdgeInsets.symmetric(horizontal: 22),
-          onSearch: _getALlPosts,
-          searchBarController: _searchBarController,
-          placeHolder: Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: ScrollConfiguration(
-              behavior: MyBehavior(),
-              child: AnimatedList(
-                  key: _listKey,
-                  scrollDirection: Axis.vertical,
-                  initialItemCount: mListings.length,
-                  shrinkWrap: true,
-                  itemBuilder: (context, indx, animation) {
-                    return SlideTransition(
-                        position: animation.drive(_offset),
-                        child: BookCard(mListings[indx]));
-                  }),
+    changeStatusColor(colorPrimary);
+    return StreamProvider<QuerySnapshot?>.value(
+      initialData: null,
+      value: DatabaseService().books,
+      child: Scaffold(
+        backgroundColor: colorPrimary,
+        body: SafeArea(
+          child: SearchBar<BookDetails>(
+            hintText: 'search',
+            hintStyle: TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.w300,
+                color: Colors.grey[800]),
+            icon: ic_search,
+            textStyle: TextStyle(color: Colors.white),
+            searchBarStyle: SearchBarStyle(
+              padding: EdgeInsets.symmetric(horizontal: 14, vertical: 0),
+              backgroundColor: colorPrimary_light,
+              borderRadius: BorderRadius.circular(26),
             ),
+            minimumChars: 1,
+            searchBarPadding: EdgeInsets.symmetric(horizontal: 22),
+            onSearch: _getALlPosts,
+            searchBarController: _searchBarController,
+            placeHolder: Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: ScrollConfiguration(
+                behavior: MyBehavior(),
+                child: AnimatedList(
+                    key: _listKey,
+                    scrollDirection: Axis.vertical,
+                    initialItemCount: mListings.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, indx, animation) {
+                      return SlideTransition(
+                          position: animation.drive(_offset),
+                          child: BookCard(mListings[indx]));
+                    }),
+              ),
+            ),
+            cancellationWidget:
+                Text("Cancel", style: TextStyle(color: colorAccentGreyIcon)),
+            emptyWidget: Text("empty"), // need a modification
+            // onCancelled: () {
+            //   print("Cancelled triggered");
+            // },
+            // mainAxisSpacing: 10,
+            onItemFound: (BookDetails post, int index) {
+              return BookCard(post);
+            },
           ),
-          cancellationWidget:
-              Text("Cancel", style: TextStyle(color: colorAccentGreyIcon)),
-          emptyWidget: Text("empty"), // need a modification
-          // onCancelled: () {
-          //   print("Cancelled triggered");
-          // },
-          // mainAxisSpacing: 10,
-          onItemFound: (BookDetails post, int index) {
-            return BookCard(post);
-          },
         ),
       ),
     );

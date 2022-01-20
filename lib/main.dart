@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:umtb_library/Library/screen/LibraryHome.dart';
+import 'package:umtb_library/Library/screen/LibraryLoading.dart';
 
 void main() {
   runApp(Library());
@@ -11,7 +12,9 @@ class Library extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: <String, WidgetBuilder>{
-        '/': (context) => LibraryHome(),
+        '/': (context) => LibraryLoading(),
+        LibraryLoading.tag: (context) => LibraryLoading(),
+        LibraryHome.tag: (context) => LibraryHome(),
       },
     );
   }

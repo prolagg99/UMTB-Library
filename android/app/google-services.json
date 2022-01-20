@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "572461537270",
-    "project_id": "umtb-library-c3ad7",
-    "storage_bucket": "umtb-library-c3ad7.appspot.com"
+    "project_number": "674060266716",
+    "project_id": "umtb-library-53f79",
+    "storage_bucket": "umtb-library-53f79.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:572461537270:android:49e5e0b95815575fd299d7",
+        "mobilesdk_app_id": "1:674060266716:android:b009154e566df954075819",
         "android_client_info": {
           "package_name": "com.lagg99.umtb_library"
         }
       },
       "oauth_client": [
         {
-          "client_id": "572461537270-coakbj3ejb55413iglp5tsqto3rl18qu.apps.googleusercontent.com",
+          "client_id": "674060266716-cr4fs7juuglntl4l1uh3irhfn16ud3ha.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAoOvpmyQ2ZS03DY4OY1wKUAexRbGYFgYY"
+          "current_key": "AIzaSyBD_AvxvK6LAZHYKOh3f-ZrusseUVcOfI4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "572461537270-coakbj3ejb55413iglp5tsqto3rl18qu.apps.googleusercontent.com",
+              "client_id": "674060266716-cr4fs7juuglntl4l1uh3irhfn16ud3ha.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
