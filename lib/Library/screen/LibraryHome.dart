@@ -65,7 +65,7 @@ class _LibraryHomeState extends State<LibraryHome> {
   @override
   Widget build(BuildContext context) {
     changeStatusColor(colorPrimary);
-    return StreamProvider<QuerySnapshot?>.value(
+    return StreamProvider<List<BookDetails>?>.value(
       initialData: null,
       value: DatabaseService().books,
       child: Scaffold(
@@ -123,21 +123,38 @@ class _LibraryHomeState extends State<LibraryHome> {
 }
 
 // ignore: must_be_immutable
-class BookCard extends StatelessWidget {
+class BookCard extends StatefulWidget {
   late BookDetails model;
   BookCard(BookDetails model) {
     this.model = model;
   }
 
   @override
+  State<BookCard> createState() => _BookCardState();
+}
+
+class _BookCardState extends State<BookCard> {
+  @override
   Widget build(BuildContext context) {
+    final books = Provider.of<List<BookDetails>>(context);
+    if (books != null) {
+      books.forEach((element) {
+        print(element.title);
+        print(element.author);
+        print(element.subfield);
+        print(element.speciality);
+        print(element.listing);
+        print(element.itemID);
+      });
+    }
     return Padding(
       padding: const EdgeInsets.fromLTRB(18, 19, 18, 17),
       child: GestureDetector(
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => LibraryBookDetails(model)),
+            MaterialPageRoute(
+                builder: (context) => LibraryBookDetails(widget.model)),
           );
         },
         child: Container(
@@ -182,15 +199,18 @@ class BookCard extends StatelessWidget {
                           flex: 1,
                           child: Container(
                             child: Row(
-                                mainAxisAlignment: arabicChar(model.title)
-                                    ? MainAxisAlignment.center
-                                    : MainAxisAlignment.start,
+                                mainAxisAlignment:
+                                    arabicChar(widget.model.title)
+                                        ? MainAxisAlignment.center
+                                        : MainAxisAlignment.start,
                                 children: [
-                                  arabicChar(model.title)
-                                      ? textWidgetRTL(
-                                          model.title, colorAccentGrey, 16.0)
-                                      : textWidget(toTitleCase(model.title),
-                                          colorAccentGrey, 16.0),
+                                  arabicChar(widget.model.title)
+                                      ? textWidgetRTL(widget.model.title,
+                                          colorAccentGrey, 16.0)
+                                      : textWidget(
+                                          toTitleCase(widget.model.title),
+                                          colorAccentGrey,
+                                          16.0),
                                 ]),
                           ),
                         ),
@@ -212,11 +232,12 @@ class BookCard extends StatelessWidget {
                                           color: colorAccentGrey,
                                         ),
                                         SizedBox(width: 8.0),
-                                        arabicChar(model.author)
-                                            ? textWidgetRTL(model.author,
+                                        arabicChar(widget.model.author)
+                                            ? textWidgetRTL(widget.model.author,
                                                 colorAccentGrey, 11.0)
                                             : textWidget(
-                                                toTitleCase(model.author),
+                                                toTitleCase(
+                                                    widget.model.author),
                                                 colorAccentGrey,
                                                 11.0),
                                       ],
@@ -239,7 +260,8 @@ class BookCard extends StatelessWidget {
                                         ),
                                         SizedBox(width: 8.0),
                                         textWidget(
-                                            model.speciality.toUpperCase(),
+                                            widget.model.speciality
+                                                .toUpperCase(),
                                             colorAccentGrey,
                                             11.0),
                                       ],
@@ -254,15 +276,18 @@ class BookCard extends StatelessWidget {
                           flex: 1,
                           child: Container(
                             child: Row(
-                              mainAxisAlignment: arabicChar(model.subfield)
-                                  ? MainAxisAlignment.end
-                                  : MainAxisAlignment.start,
+                              mainAxisAlignment:
+                                  arabicChar(widget.model.subfield)
+                                      ? MainAxisAlignment.end
+                                      : MainAxisAlignment.start,
                               children: [
-                                arabicChar(model.subfield)
-                                    ? textWidgetRTL(
-                                        model.subfield, Colors.white, 14.0)
-                                    : textWidget(toTitleCase(model.subfield),
-                                        Colors.white, 14.0),
+                                arabicChar(widget.model.subfield)
+                                    ? textWidgetRTL(widget.model.subfield,
+                                        Colors.white, 14.0)
+                                    : textWidget(
+                                        toTitleCase(widget.model.subfield),
+                                        Colors.white,
+                                        14.0),
                               ],
                             ),
                           ),
@@ -286,8 +311,10 @@ class BookCard extends StatelessWidget {
                                       size: 16.0,
                                     ),
                                     SizedBox(width: 8.0),
-                                    textWidget(toTitleCase(model.listing),
-                                        colorAccentGrey, 14.0),
+                                    textWidget(
+                                        toTitleCase(widget.model.listing),
+                                        colorAccentGrey,
+                                        14.0),
                                   ],
                                 ),
                               )),
