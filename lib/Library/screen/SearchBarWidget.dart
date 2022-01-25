@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:umtb_library/Library/model/LibraryModels.dart';
 import 'package:umtb_library/Library/screen/BookCard.dart';
+import 'package:umtb_library/Library/services/getDocuments.dart';
 import 'package:umtb_library/Library/utils/LibraryColors.dart';
 import 'package:umtb_library/Library/utils/LibraryImage.dart';
 import 'package:umtb_library/Library/utils/LibraryWidget.dart';
@@ -20,12 +21,15 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
       SearchBarController();
   var scrollController = ScrollController();
   GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
+  List<BookDetails> mListings = [];
+  // GetDocuments instance = GetDocuments();
 
   @override
   void initState() {
     super.initState();
     getDocuments();
-    getAllDocuments();
+    // instance.getDocuments();
+    getAllDocuments(); // for the search bar
     scrollController.addListener(() {
       if (scrollController.position.atEdge) {
         if (scrollController.position.pixels == 0)
@@ -45,30 +49,59 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
       // snapshot = value; // store collection state to set where to start next
       return value.docs.forEach((doc) {
         print('getDocuments ${doc.data()}');
-        setState(() {
-          listAllDocument.add(
-            BookDetails(
-              author: doc.data().toString().contains('Author')
-                  ? doc.get('Author')
-                  : '',
-              listing: doc.data().toString().contains('Listing')
-                  ? doc.get('Listing')
-                  : '',
-              speciality: doc.data().toString().contains('Speciality')
-                  ? doc.get('Speciality')
-                  : '',
-              subfield: doc.data().toString().contains('Subfield')
-                  ? doc.get('Subfield')
-                  : '',
-              title: doc.data().toString().contains('Title')
-                  ? doc.get('Title')
-                  : '',
-            ),
-          );
-        });
+        listAllDocument.add(
+          BookDetails(
+            author: doc.data().toString().contains('Author')
+                ? doc.get('Author')
+                : '',
+            listing: doc.data().toString().contains('Listing')
+                ? doc.get('Listing')
+                : '',
+            speciality: doc.data().toString().contains('Speciality')
+                ? doc.get('Speciality')
+                : '',
+            subfield: doc.data().toString().contains('Subfield')
+                ? doc.get('Subfield')
+                : '',
+            title:
+                doc.data().toString().contains('Title') ? doc.get('Title') : '',
+          ),
+        );
       });
     });
   }
+
+//   List<BookDetails> listAllDocument = [];
+// // get all data from db to search elements
+//   Future<void> getAllDocuments() async {
+//     bookCollection.get().then((value) {
+//       // snapshot = value; // store collection state to set where to start next
+//       return value.docs.forEach((doc) {
+//         print('getDocuments ${doc.data()}');
+//         setState(() {
+//           listAllDocument.add(
+//             BookDetails(
+//               author: doc.data().toString().contains('Author')
+//                   ? doc.get('Author')
+//                   : '',
+//               listing: doc.data().toString().contains('Listing')
+//                   ? doc.get('Listing')
+//                   : '',
+//               speciality: doc.data().toString().contains('Speciality')
+//                   ? doc.get('Speciality')
+//                   : '',
+//               subfield: doc.data().toString().contains('Subfield')
+//                   ? doc.get('Subfield')
+//                   : '',
+//               title: doc.data().toString().contains('Title')
+//                   ? doc.get('Title')
+//                   : '',
+//             ),
+//           );
+//         });
+//       });
+//     });
+//   }
 
   // bool isReplay = false;
   // @override

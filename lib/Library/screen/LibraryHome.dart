@@ -15,16 +15,11 @@ class _LibraryHomeState extends State<LibraryHome> {
   @override
   Widget build(BuildContext context) {
     changeStatusColor(colorPrimary);
-    return
-        // StreamProvider<List<BookDetails>>.value(
-        //     initialData: [],
-        //     value: DatabaseService().books,
-        // child:
-        Scaffold(
-            backgroundColor: colorPrimary,
-            body: SafeArea(
-              child: SearchBarWidget(),
-            ));
+    return Scaffold(
+        backgroundColor: colorPrimary,
+        body: SafeArea(
+          child: SearchBarWidget(),
+        ));
     // );
   }
 }
