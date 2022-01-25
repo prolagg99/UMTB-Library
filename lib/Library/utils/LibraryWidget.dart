@@ -33,7 +33,7 @@ class MyBehavior extends ScrollBehavior {
 
 Flexible textWidget(text, color, fontSize) {
   return Flexible(
-      child: Text(text,
+      child: Text(text != null ? text : "",
           overflow: TextOverflow.ellipsis,
           style: TextStyle(
               fontFamily: fontRegular, color: color, fontSize: fontSize)));
@@ -116,5 +116,5 @@ Widget bookContainer(icon, field, content, textColor, fontSize) {
 // detect if the text have arabic char to make it RTL direction
 final arabicCharExp = RegExp("^[\u0621-\u064A]", unicode: true);
 bool arabicChar(String str) {
-  return arabicCharExp.hasMatch(str);
+  return str != null ? arabicCharExp.hasMatch(str) : false;
 }

@@ -19,15 +19,19 @@ launchScreen(context, String tag, {Object? arguments}) {
 }
 
 toCapitalized(var content) {
-  return content.replaceFirst(content[0], content[0].toUpperCase());
+  return content != ""
+      ? content.replaceFirst(content[0], content[0].toUpperCase())
+      : "";
 }
 
 toTitleCase(var content) {
-  return content
-      .replaceAll(RegExp(' +'), ' ')
-      .split(' ')
-      .map((content) => toCapitalized(content))
-      .join(' ');
+  return content != ""
+      ? content
+          .replaceAll(RegExp(' +'), ' ')
+          .split(' ')
+          .map((content) => toCapitalized(content))
+          .join(' ')
+      : "";
 }
 
 back(var context) {
