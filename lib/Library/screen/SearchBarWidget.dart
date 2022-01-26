@@ -23,24 +23,44 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
   var scrollController = ScrollController();
   GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
   GetDocuments instance = GetDocuments();
+  // List<BookDetails> mListings = [];
   // bool isReplay = false;
 
   @override
   void initState() {
     super.initState();
-    getDocuments();
-    instance.getAllDocuments(); // for the search bar
-    scrollController.addListener(() {
-      if (scrollController.position.atEdge) {
-        if (scrollController.position.pixels == 0)
-          print('ListView scroll at top');
-        else {
-          print('ListView scroll at bottom');
-          getDocumentsNext(); // Load next documents
+    instance.getAllDocuments();
+    // for the search bar
+
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      // _addBooks();
+      getDocuments();
+      scrollController.addListener(() {
+        if (scrollController.position.atEdge) {
+          if (scrollController.position.pixels == 0)
+            print('ListView scroll at top');
+          else {
+            print('ListView scroll at bottom');
+            getDocumentsNext();
+            // Load next documents
+          }
         }
-      }
+      });
     });
   }
+
+  // void _addBooks() {
+  //   print(" list offfffffffffffffffff ${listOfDocument.length}");
+  //   Future ft = Future(() {});
+  //   listOfDocument.forEach((element) {
+  //     ft = ft.then((data) {
+  //       return Future.delayed(const Duration(milliseconds: 100), () {
+  //         mListings.add(element);
+  //         _listKey.currentState!.insertItem(mListings.length - 1);
+  //       });
+  //     });
+  //   });
+  // }
 
   // search item
   Future<List<BookDetails>> _getALlPosts(String text) async {
@@ -54,79 +74,65 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
     return posts;
   }
 
-  // void _addBooks() {
-  //   // get data from db
-  //   mListings = getBookDetails();
-  //   Future ft = Future(() {});
-
-  //   mListings.forEach((element) {
-  //     ft = ft.then((data) {
-  //       return Future.delayed(const Duration(milliseconds: 100), () {
-  //         _listKey.currentState!.insertItem(mListings.indexOf(element));
-  //       });
-  //     });
-  //   });
-  // }
-
-  // Tween<Offset> _offset = Tween(begin: Offset(1, 0), end: Offset(0, 0));
+  Tween<Offset> _offset = Tween(begin: Offset(1, 0), end: Offset(0, 0));
   @override
   Widget build(BuildContext context) {
-    return listOfDocument.length != 0
-        ? SearchBar<BookDetails>(
-            hintText: 'search',
-            hintStyle: TextStyle(
-                fontSize: 16.0,
-                fontWeight: FontWeight.w300,
-                color: Colors.grey[800]),
-            icon: ic_search,
-            textStyle: TextStyle(color: Colors.white),
-            searchBarStyle: SearchBarStyle(
-              padding: EdgeInsets.symmetric(horizontal: 14, vertical: 0),
-              backgroundColor: colorPrimary_light,
-              borderRadius: BorderRadius.circular(26),
-            ),
-            minimumChars: 1,
-            searchBarPadding: EdgeInsets.symmetric(horizontal: 22),
-            onSearch: _getALlPosts,
-            searchBarController: _searchBarController,
-            placeHolder: Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              child: ScrollConfiguration(
-                  behavior: MyBehavior(),
-                  child: ListView.builder(
-                      physics: AlwaysScrollableScrollPhysics(),
-                      controller: scrollController,
-                      key: _listKey,
-                      scrollDirection: Axis.vertical,
-                      itemCount: listOfDocument.length,
-                      shrinkWrap: true,
-                      itemBuilder: (context, indx) {
-                        // return SlideTransition(
-                        // position: animation.drive(_offset),
-                        return BookCard(listOfDocument[indx]);
-                      })),
-            ),
-            cancellationWidget:
-                Text("Cancel", style: TextStyle(color: colorAccentGreyIcon)),
-            emptyWidget: Container(
-              color: colorPrimary,
-            ), // need a modification
-            onItemFound: (BookDetails post, int index) {
-              return BookCard(
-                post,
-              );
-            },
-          )
-        : Container(
-            color: colorPrimary,
-            child: Center(
-              child: SpinKitChasingDots(
-                color: colorPrimary_light,
-                size: 50.0,
-              ),
-            ),
-          );
+    return
+        // listOfDocument.length != 0
+        //     ?
+        SearchBar<BookDetails>(
+      hintText: 'search',
+      hintStyle: TextStyle(
+          fontSize: 16.0, fontWeight: FontWeight.w300, color: Colors.grey[800]),
+      icon: ic_search,
+      textStyle: TextStyle(color: Colors.white),
+      searchBarStyle: SearchBarStyle(
+        padding: EdgeInsets.symmetric(horizontal: 14, vertical: 0),
+        backgroundColor: colorPrimary_light,
+        borderRadius: BorderRadius.circular(26),
+      ),
+      minimumChars: 1,
+      searchBarPadding: EdgeInsets.symmetric(horizontal: 22),
+      onSearch: _getALlPosts,
+      searchBarController: _searchBarController,
+      placeHolder: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: ScrollConfiguration(
+            behavior: MyBehavior(),
+            child: AnimatedList(
+                physics: AlwaysScrollableScrollPhysics(),
+                controller: scrollController,
+                key: _listKey,
+                scrollDirection: Axis.vertical,
+                initialItemCount: listOfDocument.length,
+                shrinkWrap: true,
+                itemBuilder: (context, indx, animation) {
+                  return SlideTransition(
+                      position: animation.drive(_offset),
+                      child: BookCard(listOfDocument[indx]));
+                })),
+      ),
+      cancellationWidget:
+          Text("Cancel", style: TextStyle(color: colorAccentGreyIcon)),
+      emptyWidget: Container(
+        color: colorPrimary,
+      ), // need a modification
+      onItemFound: (BookDetails post, int index) {
+        return BookCard(
+          post,
+        );
+      },
+    );
+    // : Container(
+    //     color: colorPrimary,
+    //     child: Center(
+    //       child: SpinKitChasingDots(
+    //         color: colorPrimary_light,
+    //         size: 50.0,
+    //       ),
+    //     ),
+    //   );
   }
 
   List<BookDetails> listOfDocument = [];
@@ -136,7 +142,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
 
 // Fetch first 15 documents
   Future<void> getDocuments() async {
-    var collection = bookCollection.limit(10);
+    var collection = bookCollection.limit(5);
     print('getDocuments');
     fetchDocuments(collection);
   }
@@ -151,30 +157,36 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
   }
 
   fetchDocuments(Query collection) {
+    Future ft = Future(() {});
     collection.get().then((value) {
       snapshot = value; // store collection state to set where to start next
       value.docs.forEach((doc) {
         print('getDocuments ${doc.data()}');
-        setState(() {
-          listOfDocument.add(
-            BookDetails(
-              author: doc.data().toString().contains('Author')
-                  ? doc.get('Author')
-                  : '',
-              listing: doc.data().toString().contains('Listing')
-                  ? doc.get('Listing')
-                  : '',
-              speciality: doc.data().toString().contains('Speciality')
-                  ? doc.get('Speciality')
-                  : '',
-              subfield: doc.data().toString().contains('Subfield')
-                  ? doc.get('Subfield')
-                  : '',
-              title: doc.data().toString().contains('Title')
-                  ? doc.get('Title')
-                  : '',
-            ),
-          );
+        ft = ft.then((data) {
+          return Future.delayed(const Duration(milliseconds: 300), () {
+            setState(() {
+              listOfDocument.add(
+                BookDetails(
+                  author: doc.data().toString().contains('Author')
+                      ? doc.get('Author')
+                      : '',
+                  listing: doc.data().toString().contains('Listing')
+                      ? doc.get('Listing')
+                      : '',
+                  speciality: doc.data().toString().contains('Speciality')
+                      ? doc.get('Speciality')
+                      : '',
+                  subfield: doc.data().toString().contains('Subfield')
+                      ? doc.get('Subfield')
+                      : '',
+                  title: doc.data().toString().contains('Title')
+                      ? doc.get('Title')
+                      : '',
+                ),
+              );
+              _listKey.currentState!.insertItem(listOfDocument.length - 1);
+            });
+          });
         });
       });
     });
