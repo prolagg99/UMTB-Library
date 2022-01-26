@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:umtb_library/Library/screen/LibraryHome.dart';
-import 'package:umtb_library/Library/screen/LibraryLoading.dart';
+// import 'package:umtb_library/Library/screen/LibraryLoading.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,8 +15,8 @@ class Library extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: <String, WidgetBuilder>{
-        '/': (context) => LibraryLoading(),
-        LibraryLoading.tag: (context) => LibraryLoading(),
+        '/': (context) => LibraryHome(),
+        // LibraryLoading.tag: (context) => LibraryLoading(),
         LibraryHome.tag: (context) => LibraryHome(),
       },
     );

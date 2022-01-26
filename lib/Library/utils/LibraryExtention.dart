@@ -34,6 +34,12 @@ toTitleCase(var content) {
       : "";
 }
 
+toLowerCase(var content){
+  return content != "" ?
+  content.toLowerCase() : "" ;
+
+}
+
 back(var context) {
   Navigator.pop(context);
 }

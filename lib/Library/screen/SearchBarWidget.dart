@@ -2,10 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flappy_search_bar/search_bar_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flappy_search_bar/flappy_search_bar.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:umtb_library/Library/model/LibraryModels.dart';
 import 'package:umtb_library/Library/screen/BookCard.dart';
 import 'package:umtb_library/Library/services/getDocuments.dart';
 import 'package:umtb_library/Library/utils/LibraryColors.dart';
+import 'package:umtb_library/Library/utils/LibraryExtention.dart';
 import 'package:umtb_library/Library/utils/LibraryImage.dart';
 import 'package:umtb_library/Library/utils/LibraryWidget.dart';
 
@@ -17,19 +19,17 @@ class SearchBarWidget extends StatefulWidget {
 }
 
 class _SearchBarWidgetState extends State<SearchBarWidget> {
-  final SearchBarController<BookDetails> _searchBarController =
-      SearchBarController();
+  SearchBarController<BookDetails> _searchBarController = SearchBarController();
   var scrollController = ScrollController();
   GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
-  List<BookDetails> mListings = [];
-  // GetDocuments instance = GetDocuments();
+  GetDocuments instance = GetDocuments();
+  // bool isReplay = false;
 
   @override
   void initState() {
     super.initState();
     getDocuments();
-    // instance.getDocuments();
-    getAllDocuments(); // for the search bar
+    instance.getAllDocuments(); // for the search bar
     scrollController.addListener(() {
       if (scrollController.position.atEdge) {
         if (scrollController.position.pixels == 0)
@@ -42,79 +42,9 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
     });
   }
 
-  List<BookDetails> listAllDocument = [];
-// get all data from db to search elements
-  Future<void> getAllDocuments() async {
-    bookCollection.get().then((value) {
-      // snapshot = value; // store collection state to set where to start next
-      return value.docs.forEach((doc) {
-        print('getDocuments ${doc.data()}');
-        listAllDocument.add(
-          BookDetails(
-            author: doc.data().toString().contains('Author')
-                ? doc.get('Author')
-                : '',
-            listing: doc.data().toString().contains('Listing')
-                ? doc.get('Listing')
-                : '',
-            speciality: doc.data().toString().contains('Speciality')
-                ? doc.get('Speciality')
-                : '',
-            subfield: doc.data().toString().contains('Subfield')
-                ? doc.get('Subfield')
-                : '',
-            title:
-                doc.data().toString().contains('Title') ? doc.get('Title') : '',
-          ),
-        );
-      });
-    });
-  }
-
-//   List<BookDetails> listAllDocument = [];
-// // get all data from db to search elements
-//   Future<void> getAllDocuments() async {
-//     bookCollection.get().then((value) {
-//       // snapshot = value; // store collection state to set where to start next
-//       return value.docs.forEach((doc) {
-//         print('getDocuments ${doc.data()}');
-//         setState(() {
-//           listAllDocument.add(
-//             BookDetails(
-//               author: doc.data().toString().contains('Author')
-//                   ? doc.get('Author')
-//                   : '',
-//               listing: doc.data().toString().contains('Listing')
-//                   ? doc.get('Listing')
-//                   : '',
-//               speciality: doc.data().toString().contains('Speciality')
-//                   ? doc.get('Speciality')
-//                   : '',
-//               subfield: doc.data().toString().contains('Subfield')
-//                   ? doc.get('Subfield')
-//                   : '',
-//               title: doc.data().toString().contains('Title')
-//                   ? doc.get('Title')
-//                   : '',
-//             ),
-//           );
-//         });
-//       });
-//     });
-//   }
-
-  // bool isReplay = false;
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   WidgetsBinding.instance!.addPostFrameCallback((_) {
-  //     _addBooks();
-  //   });
-  // }
-
   // search item
   Future<List<BookDetails>> _getALlPosts(String text) async {
-    List<BookDetails> posts = listAllDocument
+    List<BookDetails> posts = instance.listAllDocument
         .where((element) =>
             element.title.contains(text) ||
             element.author.contains(text) ||
@@ -141,28 +71,29 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
   // Tween<Offset> _offset = Tween(begin: Offset(1, 0), end: Offset(0, 0));
   @override
   Widget build(BuildContext context) {
-    return SearchBar<BookDetails>(
-      hintText: 'search',
-      hintStyle: TextStyle(
-          fontSize: 16.0, fontWeight: FontWeight.w300, color: Colors.grey[800]),
-      icon: ic_search,
-      textStyle: TextStyle(color: Colors.white),
-      searchBarStyle: SearchBarStyle(
-        padding: EdgeInsets.symmetric(horizontal: 14, vertical: 0),
-        backgroundColor: colorPrimary_light,
-        borderRadius: BorderRadius.circular(26),
-      ),
-      minimumChars: 1,
-      searchBarPadding: EdgeInsets.symmetric(horizontal: 22),
-      onSearch: _getALlPosts,
-      searchBarController: _searchBarController,
-      placeHolder: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: ScrollConfiguration(
-          behavior: MyBehavior(),
-          child: listOfDocument.length != 0
-              ? RefreshIndicator(
+    return listOfDocument.length != 0
+        ? SearchBar<BookDetails>(
+            hintText: 'search',
+            hintStyle: TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.w300,
+                color: Colors.grey[800]),
+            icon: ic_search,
+            textStyle: TextStyle(color: Colors.white),
+            searchBarStyle: SearchBarStyle(
+              padding: EdgeInsets.symmetric(horizontal: 14, vertical: 0),
+              backgroundColor: colorPrimary_light,
+              borderRadius: BorderRadius.circular(26),
+            ),
+            minimumChars: 1,
+            searchBarPadding: EdgeInsets.symmetric(horizontal: 22),
+            onSearch: _getALlPosts,
+            searchBarController: _searchBarController,
+            placeHolder: Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: ScrollConfiguration(
+                  behavior: MyBehavior(),
                   child: ListView.builder(
                       physics: AlwaysScrollableScrollPhysics(),
                       controller: scrollController,
@@ -174,21 +105,28 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                         // return SlideTransition(
                         // position: animation.drive(_offset),
                         return BookCard(listOfDocument[indx]);
-                      }),
-                  onRefresh: getDocuments,
-                )
-              : CircularProgressIndicator(),
-        ),
-      ),
-      cancellationWidget:
-          Text("Cancel", style: TextStyle(color: colorAccentGreyIcon)),
-      emptyWidget: Text("empty"), // need a modification
-      onItemFound: (BookDetails post, int index) {
-        return BookCard(
-          post,
-        );
-      },
-    );
+                      })),
+            ),
+            cancellationWidget:
+                Text("Cancel", style: TextStyle(color: colorAccentGreyIcon)),
+            emptyWidget: Container(
+              color: colorPrimary,
+            ), // need a modification
+            onItemFound: (BookDetails post, int index) {
+              return BookCard(
+                post,
+              );
+            },
+          )
+        : Container(
+            color: colorPrimary,
+            child: Center(
+              child: SpinKitChasingDots(
+                color: colorPrimary_light,
+                size: 50.0,
+              ),
+            ),
+          );
   }
 
   List<BookDetails> listOfDocument = [];
