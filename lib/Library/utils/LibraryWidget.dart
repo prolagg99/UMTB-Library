@@ -116,5 +116,5 @@ Widget bookContainer(icon, field, content, textColor, fontSize) {
 // detect if the text have arabic char to make it RTL direction
 final arabicCharExp = RegExp("^[\u0621-\u064A]", unicode: true);
 bool arabicChar(String str) {
-  return str != null ? arabicCharExp.hasMatch(str) : false;
+  return str != "" ? arabicCharExp.hasMatch(str) : false;
 }

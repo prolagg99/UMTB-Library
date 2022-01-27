@@ -135,10 +135,8 @@ class _BookCardState extends State<BookCard> {
                                         ),
                                         SizedBox(width: 8.0),
                                         textWidget(
-                                            widget.model.speciality != null
-                                                ? widget.model.speciality
-                                                    .toUpperCase()
-                                                : widget.model.speciality,
+                                            widget.model.speciality
+                                                .toUpperCase(),
                                             colorAccentGrey,
                                             11.0),
                                       ],

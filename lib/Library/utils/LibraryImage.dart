@@ -14,11 +14,3 @@ const ic_speciality = 'images/speciality.svg';
 const ic_subfield = 'images/subfield.svg';
 const ic_open_book = 'images/open_book.svg';
 const ic_open_book2 = 'images/open_book2.svg';
-
-
-// images
-// const logo_djezzy = "images/Logo_Djezzy.png";
-// const logo_djezzy2 = "images/Logo_Djezzy2.png";
-// const logo_djezzy3 = "images/Logo_Djezzy3.png";
-// const logo_djezzy4 = "images/Logo_Djezzy4.png";
-
