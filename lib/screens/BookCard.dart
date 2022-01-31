@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:umtb_library/Library/model/LibraryModels.dart';
-import 'package:umtb_library/Library/screen/LibraryBookDetails.dart';
-import 'package:umtb_library/Library/utils/LibraryColors.dart';
-import 'package:umtb_library/Library/utils/LibraryExtention.dart';
-import 'package:umtb_library/Library/utils/LibraryWidget.dart';
+import 'package:umtb_library/model/LibraryModels.dart';
+import 'package:umtb_library/screens/LibraryBookDetails.dart';
+import 'package:umtb_library/utils/colors.dart';
+import 'package:umtb_library/utils/extension.dart';
+import 'package:umtb_library/utils/widget.dart';
 
 // ignore: must_be_immutable
 class BookCard extends StatefulWidget {

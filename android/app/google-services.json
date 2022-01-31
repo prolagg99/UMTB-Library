@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "674060266716-f40m524jd7p4hk2visbsd8hgdd2uui4r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lagg99.umtb_library",
+            "certificate_hash": "92d7a15014f846a8e1f85005afebdb6e68810185"
+          }
+        },
+        {
           "client_id": "674060266716-cr4fs7juuglntl4l1uh3irhfn16ud3ha.apps.googleusercontent.com",
           "client_type": 3
         }

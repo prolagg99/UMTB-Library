@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:umtb_library/Library/screen/LibraryHome.dart';
-import 'package:umtb_library/Library/services/getDocuments.dart';
-import 'package:umtb_library/Library/utils/LibraryColors.dart';
-import 'package:umtb_library/Library/utils/LibraryExtention.dart';
+import 'package:umtb_library/screens/LibraryHome.dart';
+import 'package:umtb_library/services/getDocuments.dart';
+import 'package:umtb_library/utils/colors.dart';
+import 'package:umtb_library/utils/extension.dart';
 
 class LibraryLoading extends StatefulWidget {
   LibraryLoading({Key? key}) : super(key: key);

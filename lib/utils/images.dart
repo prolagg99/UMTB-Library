@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:umtb_library/Library/utils/LibraryColors.dart';
+import 'package:umtb_library/utils/colors.dart';
 
 // icons
 const ic_search = Icon(Icons.search, color: colorAccentGreyIcon);

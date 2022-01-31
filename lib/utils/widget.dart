@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:umtb_library/Library/utils/LibraryColors.dart';
-import 'package:umtb_library/Library/utils/LibraryConstant.dart';
-import 'package:umtb_library/Library/utils/LibraryExtention.dart';
+import 'package:umtb_library/utils/colors.dart';
+import 'package:umtb_library/utils/constant.dart';
+import 'package:umtb_library/utils/extension.dart';
 
 AppBar appBar(context) {
   return AppBar(

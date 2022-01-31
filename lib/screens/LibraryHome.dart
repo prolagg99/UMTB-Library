@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:umtb_library/Library/screen/SearchBarWidget.dart';
-import 'package:umtb_library/Library/utils/LibraryColors.dart';
-import 'package:umtb_library/Library/utils/LibraryExtention.dart';
+import 'package:umtb_library/screens/SearchBarWidget.dart';
+import 'package:umtb_library/utils/colors.dart';
+import 'package:umtb_library/utils/extension.dart';
 
 class LibraryHome extends StatefulWidget {
   static String tag = '/LibraryHome';

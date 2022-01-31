@@ -2,12 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flappy_search_bar/search_bar_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flappy_search_bar/flappy_search_bar.dart';
-import 'package:umtb_library/Library/model/LibraryModels.dart';
-import 'package:umtb_library/Library/screen/BookCard.dart';
-import 'package:umtb_library/Library/services/getDocuments.dart';
-import 'package:umtb_library/Library/utils/LibraryColors.dart';
-import 'package:umtb_library/Library/utils/LibraryImage.dart';
-import 'package:umtb_library/Library/utils/LibraryWidget.dart';
+import 'package:umtb_library/model/LibraryModels.dart';
+import 'package:umtb_library/screens/BookCard.dart';
+import 'package:umtb_library/services/getDocuments.dart';
+import 'package:umtb_library/utils/colors.dart';
+import 'package:umtb_library/utils/images.dart';
+import 'package:umtb_library/utils/widget.dart';
 
 class SearchBarWidget extends StatefulWidget {
   const SearchBarWidget({Key? key}) : super(key: key);

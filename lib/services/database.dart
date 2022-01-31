@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:umtb_library/Library/model/LibraryModels.dart';
+import 'package:umtb_library/model/LibraryModels.dart';
 
 class DatabaseService {
   int loadMoreData;

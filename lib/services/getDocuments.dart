@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:umtb_library/Library/model/LibraryModels.dart';
-import 'package:umtb_library/Library/utils/LibraryExtention.dart';
+import 'package:umtb_library/model/LibraryModels.dart';
+import 'package:umtb_library/utils/extension.dart';
 
 class GetDocuments {
   final CollectionReference bookCollection =
