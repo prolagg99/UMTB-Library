@@ -1,3 +1,5 @@
+// ignore_for_file: import_of_legacy_library_into_null_safe
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flappy_search_bar/search_bar_style.dart';
 import 'package:flutter/material.dart';
@@ -27,8 +29,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
   @override
   void initState() {
     super.initState();
-    instance.getAllDocuments();
-    // for the search bar
+    instance.getAllDocuments(); // for the search bar
 
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       // _addBooks();
@@ -161,7 +162,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
       value.docs.forEach((doc) {
         print('getDocuments ${doc.data()}');
         ft = ft.then((data) {
-          return Future.delayed(const Duration(milliseconds: 300), () {
+          return Future.delayed(const Duration(milliseconds: 200), () {
             setState(() {
               listOfDocument.add(
                 BookDetails(

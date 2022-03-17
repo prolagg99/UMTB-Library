@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:umtb_library/screens/LibraryHome.dart';
 import 'package:umtb_library/services/getDocuments.dart';
 import 'package:umtb_library/utils/colors.dart';
 import 'package:umtb_library/utils/extension.dart';
+import 'package:umtb_library/utils/images.dart';
 
 class LibraryLoading extends StatefulWidget {
   LibraryLoading({Key? key}) : super(key: key);
@@ -17,8 +17,8 @@ class _LibraryLoadingState extends State<LibraryLoading> {
   GetDocuments instance = GetDocuments();
 
   void loading() async {
-    await instance.getAllDocuments();
-    // await Future.delayed(Duration(seconds: 3));
+    // await instance.getAllDocuments();
+    await Future.delayed(Duration(seconds: 3));
     launchScreen(context, LibraryHome.tag);
   }
 
@@ -37,9 +37,10 @@ class _LibraryLoadingState extends State<LibraryLoading> {
           child: Container(
         color: colorPrimary,
         child: Center(
-          child: SpinKitChasingDots(
-            color: colorPrimary_light,
-            size: 50.0,
+          child: Image.asset(
+            ic_luncher_screen,
+            height: 68.0,
+            width: 68.0,
           ),
         ),
       )),

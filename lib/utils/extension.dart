@@ -1,3 +1,5 @@
+// ignore_for_file: import_of_legacy_library_into_null_safe
+
 import 'package:flutter/material.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 
@@ -34,10 +36,8 @@ toTitleCase(var content) {
       : "";
 }
 
-toLowerCase(var content){
-  return content != "" ?
-  content.toLowerCase() : "" ;
-
+toLowerCase(var content) {
+  return content != "" ? content.toLowerCase() : "";
 }
 
 back(var context) {

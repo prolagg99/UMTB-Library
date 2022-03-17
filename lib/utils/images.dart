@@ -4,6 +4,7 @@ import 'package:umtb_library/utils/colors.dart';
 // icons
 const ic_search = Icon(Icons.search, color: colorAccentGreyIcon);
 
+const ic_luncher_screen = 'images/luncher_screen.png';
 const ic_users = 'images/users.svg';
 const ic_sliders = 'images/sliders.svg';
 const ic_book = 'images/book.svg';
